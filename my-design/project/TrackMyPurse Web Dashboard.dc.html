@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#E9EBE6; font-family:'Plus Jakarta Sans', -apple-system, sans-serif; -webkit-font-smoothing:antialiased; color:#141712; }
+  * { box-sizing:border-box; }
+  a { color:#4E7D25; text-decoration:none; }
+  a:hover { color:#3C6119; }
+  @keyframes gaugeFill2 { to { stroke-dashoffset: 94; } }
+  doc-page:not(:defined) { visibility:hidden; }
+  @media print { * { -webkit-print-color-adjust:exact; print-color-adjust:exact; animation-delay:-99s !important; animation-duration:.001s !important; animation-iteration-count:1 !important; animation-fill-mode:both !important; transition-duration:0s !important; } }
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+
+<doc-page size="letter" orientation="landscape" content-width="1400px" content-height="1080px">
+<div style="padding:18px">
+  <div style="display:grid; grid-template-columns:minmax(0,232px) minmax(0,1fr); gap:18px; margin:0 auto; align-items:start">
+
+    <div style="background:#fff; border-radius:26px; padding:18px; display:flex; flex-direction:column; gap:6px; min-height:1044px">
+      <div style="display:flex; align-items:center; gap:10px; padding:6px 8px 20px">
+        <div style="width:34px; height:34px; border-radius:11px; background:#141712; display:flex; align-items:center; justify-content:center">
+          <div style="width:13px; height:13px; border-radius:4px; background:#9BD44A"></div>
+        </div>
+        <div style="font-size:15px; font-weight:800; letter-spacing:-.02em">TrackMyPurse</div>
+      </div>
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="7">
+        <div onClick="{{ n.onPick }}" style="{{ n.style }}" style-hover="background:#F1F4EE">
+          <div style="{{ n.dotStyle }}"></div>
+          <span style="flex:1">{{ n.label }}</span>
+          <span style="{{ n.badgeStyle }}">{{ n.badge }}</span>
+        </div>
+      </sc-for>
+      <div style="height:1px; background:#EDF0E9; margin:14px 4px"></div>
+      <sc-for list="{{ navSecondary }}" as="n" hint-placeholder-count="3">
+        <div onClick="{{ n.onPick }}" style="{{ n.style }}" style-hover="background:#F1F4EE">
+          <div style="{{ n.dotStyle }}"></div>
+          <span style="flex:1">{{ n.label }}</span>
+        </div>
+      </sc-for>
+      <div style="flex:1"></div>
+      <div style="background:#141712; border-radius:20px; padding:16px; color:#fff">
+        <div style="width:28px; height:28px; border-radius:9px; background:#9BD44A"></div>
+        <div style="font-size:14px; font-weight:700; margin-top:12px">Scan on mobile</div>
+        <div style="font-size:11px; color:#98A18C; line-height:1.55; margin-top:4px">Receipts captured on your phone land here in seconds.</div>
+        <div style="margin-top:12px; padding:10px; border-radius:12px; background:#9BD44A; color:#141712; font-size:12px; font-weight:700; text-align:center; cursor:pointer">Get the app</div>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:14px; min-width:0">
+
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
+        <div style="flex:1; min-width:240px; background:#fff; border-radius:16px; padding:13px 18px; display:flex; align-items:center; gap:12px">
+          <div style="width:14px; height:14px; border:2px solid #9AA396; border-radius:50%; flex:none"></div>
+          <div style="font-size:14px; color:#9AA396">Search transactions, vendors, tags</div>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center">
+          <div style="width:46px; height:46px; border-radius:15px; background:#fff; display:flex; align-items:center; justify-content:center; position:relative">
+            <div style="width:14px; height:14px; border-radius:5px; border:2px solid #4A5142"></div>
+            <div style="position:absolute; top:12px; right:13px; width:7px; height:7px; border-radius:50%; background:#8CC93F; border:2px solid #fff"></div>
+          </div>
+          <div style="background:#fff; border-radius:15px; padding:7px 14px 7px 8px; display:flex; align-items:center; gap:10px">
+            <div style="width:32px; height:32px; border-radius:11px; background:#141712; color:#9BD44A; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center">AR</div>
+            <div>
+              <div style="font-size:13px; font-weight:700; line-height:1.2">Ananya Rao</div>
+              <div style="font-size:11px; color:#8B9480">Personal · INR</div>
+            </div>
+          </div>
+          <div onClick="{{ toggleAdd }}" style="background:#141712; color:#fff; border-radius:15px; padding:14px 18px; font-size:13px; font-weight:700; cursor:pointer" style-hover="background:#232819">+ Add transaction</div>
+        </div>
+      </div>
+
+      <sc-if value="{{ addOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#EEF5E4; border:1px solid #D8E7C0; border-radius:20px; padding:16px 18px; display:flex; gap:14px; align-items:center; flex-wrap:wrap">
+          <div style="font-size:13px; font-weight:700; color:#2F4A17">Quick add</div>
+          <div style="background:#fff; border-radius:12px; padding:10px 14px; font-size:13px; font-weight:700; min-width:120px">₹0</div>
+          <div style="background:#fff; border-radius:12px; padding:10px 14px; font-size:13px; color:#5C6553">Groceries ▾</div>
+          <div style="background:#fff; border-radius:12px; padding:10px 14px; font-size:13px; color:#5C6553">#personal ▾</div>
+          <div style="background:#fff; border-radius:12px; padding:10px 14px; font-size:13px; color:#5C6553">Today ▾</div>
+          <div onClick="{{ toggleAdd }}" style="background:#141712; color:#fff; border-radius:12px; padding:10px 18px; font-size:13px; font-weight:700; cursor:pointer">Save</div>
+        </div>
+      </sc-if>
+
+      <div style="display:grid; grid-template-columns:minmax(0,2.1fr) minmax(0,1fr); gap:14px">
+
+        <div style="background:#fff; border-radius:26px; padding:22px; min-width:0">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap">
+            <div>
+              <div style="font-size:38px; font-weight:800; letter-spacing:-.035em">₹2,48,650</div>
+              <div style="font-size:13px; color:#7C8574; font-weight:600; margin-top:2px">Balance overview · all accounts</div>
+            </div>
+            <div style="display:flex; gap:8px">
+              <sc-for list="{{ ranges }}" as="p" hint-placeholder-count="3">
+                <div onClick="{{ p.onPick }}" style="{{ p.style }}">{{ p.label }}</div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex; gap:18px; margin-top:16px">
+            <sc-for list="{{ legend }}" as="l" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; gap:7px; font-size:12px; font-weight:600; color:#5C6553">
+                <div style="{{ l.dotStyle }}"></div>{{ l.label }}
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex; align-items:flex-end; gap:10px; height:240px; margin-top:18px; border-bottom:1px solid #EDF0E9; padding-bottom:10px">
+            <sc-for list="{{ chart }}" as="c" hint-placeholder-count="7">
+              <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; min-width:0">
+                <div style="display:flex; gap:4px; align-items:flex-end; height:206px; width:100%; justify-content:center">
+                  <div style="{{ c.savStyle }}"></div>
+                  <div style="{{ c.incStyle }}"></div>
+                  <div style="{{ c.expStyle }}"></div>
+                </div>
+                <div style="font-size:11px; color:#8B9480; font-weight:600">{{ c.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:16px">
+            <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="3">
+              <div style="background:#F6F8F3; border-radius:18px; padding:14px 16px">
+                <div style="font-size:12px; color:#7C8574; font-weight:600">{{ k.label }}</div>
+                <div style="font-size:22px; font-weight:800; letter-spacing:-.025em; margin-top:2px">{{ k.value }}</div>
+                <div style="{{ k.deltaStyle }}">{{ k.delta }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:14px; min-width:0">
+          <div style="background:#141712; border-radius:26px; padding:22px; color:#fff">
+            <div style="display:flex; justify-content:space-between; align-items:center">
+              <div style="font-size:15px; font-weight:700">Financial health</div>
+              <div style="font-size:11px; font-weight:700; color:#9BD44A; background:#1E2319; padding:6px 11px; border-radius:99px">30 days</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:18px; margin-top:12px">
+              <div style="position:relative; width:132px; height:132px; flex:none">
+                <svg width="132" height="132" viewBox="0 0 160 160">
+                  <circle cx="80" cy="80" r="68" fill="none" stroke="#252B1D" stroke-width="15"></circle>
+                  <circle cx="80" cy="80" r="68" fill="none" stroke="#9BD44A" stroke-width="15" stroke-linecap="round" stroke-dasharray="427" style="stroke-dashoffset:427; transform:rotate(-90deg); transform-origin:80px 80px; animation:gaugeFill2 1.6s .3s cubic-bezier(.2,.85,.25,1) forwards"></circle>
+                </svg>
+                <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center">
+                  <div style="font-size:30px; font-weight:800; letter-spacing:-.03em">78</div>
+                  <div style="font-size:10px; color:#8B9480; font-weight:700; letter-spacing:.08em">GOOD</div>
+                </div>
+              </div>
+              <div style="flex:1; display:flex; flex-direction:column; gap:11px">
+                <sc-for list="{{ healthRows }}" as="h" hint-placeholder-count="3">
+                  <div>
+                    <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:600; color:#98A18C"><span>{{ h.label }}</span><span style="color:#EDEFE7">{{ h.val }}</span></div>
+                    <div style="height:6px; border-radius:99px; background:#262C1F; margin-top:5px"><div style="{{ h.barStyle }}"></div></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="font-size:11px; color:#8B9480; line-height:1.6; margin-top:14px">Based on savings rate, budget adherence and recurring load over the past 30 days.</div>
+          </div>
+
+          <div style="background:#fff; border-radius:26px; padding:22px">
+            <div style="display:flex; justify-content:space-between; align-items:baseline">
+              <div style="font-size:15px; font-weight:700">Monthly budget</div>
+              <div style="font-size:12px; color:#7C8574; font-weight:600">₹7,660 left</div>
+            </div>
+            <div style="height:12px; border-radius:99px; background:#EDF1E7; margin-top:14px; overflow:hidden"><div style="width:87%; height:100%; border-radius:99px; background:linear-gradient(90deg,#A5DC57,#7DBE3C)"></div></div>
+            <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:700; margin-top:9px"><span>₹52,340 spent</span><span style="color:#9AA396">₹60,000</span></div>
+            <div style="display:flex; flex-direction:column; gap:10px; margin-top:16px">
+              <sc-for list="{{ budgetRows }}" as="b" hint-placeholder-count="4">
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:600; color:#3F4739"><span>{{ b.name }}</span><span style="{{ b.pctColor }}">{{ b.pct }}</span></div>
+                  <div style="height:7px; border-radius:99px; background:#EDF1E7; margin-top:5px"><div style="{{ b.barStyle }}"></div></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,1.1fr); gap:14px">
+
+        <div style="background:#fff; border-radius:26px; padding:22px; min-width:0">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div>
+              <div style="font-size:15px; font-weight:700">Spend by category</div>
+              <div style="font-size:12px; color:#7C8574; margin-top:2px">September 2026</div>
+            </div>
+            <div style="font-size:12px; font-weight:700; background:#F1F4EC; padding:8px 12px; border-radius:11px; color:#3F4739">Month ▾</div>
+          </div>
+          <div style="font-size:30px; font-weight:800; letter-spacing:-.03em; margin-top:14px">₹52,340</div>
+          <div style="display:flex; gap:3px; margin-top:12px">
+            <sc-for list="{{ catBreak }}" as="c" hint-placeholder-count="6">
+              <div style="{{ c.segStyle }}"></div>
+            </sc-for>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:12px; margin-top:16px">
+            <sc-for list="{{ catBreak }}" as="c" hint-placeholder-count="6">
+              <div style="display:flex; align-items:center; gap:10px">
+                <div style="{{ c.dotStyle }}"></div>
+                <div style="flex:1; font-size:13px; color:#3F4739; font-weight:600">{{ c.name }}</div>
+                <div style="font-size:12px; color:#7C8574; font-weight:600">{{ c.amount }}</div>
+                <div style="font-size:13px; font-weight:800; width:42px; text-align:right">{{ c.pct }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:14px; min-width:0">
+          <div style="background:#fff; border-radius:26px; padding:22px">
+            <div style="display:flex; justify-content:space-between; align-items:center">
+              <div style="font-size:15px; font-weight:700">Upcoming bills</div>
+              <div style="font-size:12px; font-weight:700; color:#4E7D25; cursor:pointer">Manage</div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:12px; margin-top:14px">
+              <sc-for list="{{ bills }}" as="b" hint-placeholder-count="4">
+                <div style="display:flex; align-items:center; gap:12px">
+                  <div style="{{ b.chipStyle }}">{{ b.initials }}</div>
+                  <div style="flex:1; min-width:0">
+                    <div style="font-size:13px; font-weight:700">{{ b.name }}</div>
+                    <div style="font-size:11px; color:#7C8574; margin-top:2px">{{ b.due }}</div>
+                  </div>
+                  <div style="font-size:13px; font-weight:800">{{ b.amount }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="background:#EEF5E4; border:1px solid #D8E7C0; border-radius:26px; padding:22px; flex:1">
+            <div style="font-size:15px; font-weight:700; color:#2F4A17">Budget optimization</div>
+            <div style="display:flex; flex-direction:column; gap:12px; margin-top:14px">
+              <sc-for list="{{ tips }}" as="t" hint-placeholder-count="2">
+                <div style="display:flex; gap:10px; align-items:flex-start">
+                  <div style="width:20px; height:20px; border-radius:7px; background:#7DBE3C; flex:none; margin-top:1px"></div>
+                  <div style="font-size:12px; color:#3F5E22; line-height:1.55; text-wrap:pretty">{{ t.text }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#fff; border-radius:26px; padding:22px; min-width:0">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div style="font-size:15px; font-weight:700">Recent activity</div>
+            <div style="font-size:12px; font-weight:700; background:#F1F4EC; padding:8px 12px; border-radius:11px; color:#3F4739">7d ▾</div>
+          </div>
+          <div style="display:flex; gap:7px; margin-top:14px; flex-wrap:wrap">
+            <sc-for list="{{ filters }}" as="f" hint-placeholder-count="3">
+              <div onClick="{{ f.onPick }}" style="{{ f.style }}">{{ f.label }}</div>
+            </sc-for>
+          </div>
+          <div style="margin-top:6px">
+            <sc-for list="{{ txns }}" as="t" hint-placeholder-count="6">
+              <div style="display:flex; align-items:center; gap:12px; padding:13px 0; border-bottom:1px solid #F0F3EC">
+                <div style="{{ t.chipStyle }}">{{ t.initials }}</div>
+                <div style="flex:1; min-width:0">
+                  <div style="font-size:13px; font-weight:700">{{ t.name }}</div>
+                  <div style="font-size:11px; color:#7C8574; margin-top:2px">{{ t.meta }}</div>
+                </div>
+                <div style="text-align:right">
+                  <div style="{{ t.amtStyle }}">{{ t.amount }}</div>
+                  <div style="{{ t.statusStyle }}">{{ t.status }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:14px; padding:12px; border-radius:14px; border:1px solid #E4E8DE; text-align:center; font-size:13px; font-weight:700; color:#3F4739; cursor:pointer" style-hover="border-color:#C9D2BE">View all transactions</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = { nav: 'Dashboard', range: '7d', filter: 'All', addOpen: false };
+
+  navStyle(active) {
+    return 'display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:13px;font-size:13.5px;font-weight:600;cursor:pointer;' +
+      (active ? 'background:#F1F4EC;color:#141712' : 'color:#4A5142');
+  }
+  chipBtn(active) {
+    return 'padding:8px 13px;border-radius:99px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid ' +
+      (active ? '#141712;background:#141712;color:#fff' : '#E4E8DE;background:#fff;color:#5C6553');
+  }
+  chip(bg, fg) {
+    return 'width:36px;height:36px;flex:none;border-radius:12px;background:' + bg + ';color:' + fg + ';font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center';
+  }
+
+  renderVals() {
+    const s = this.state;
+    const mkNav = (label, badge) => ({
+      label, badge: badge || '',
+      onPick: () => this.setState({ nav: label }),
+      style: this.navStyle(s.nav === label),
+      dotStyle: 'width:8px;height:8px;border-radius:3px;flex:none;background:' + (s.nav === label ? '#8CC93F' : '#C6CDBC'),
+      badgeStyle: 'font-size:10px;font-weight:700;color:#8B9480'
+    });
+
+    const chartSets = {
+      '7d': [['Mon', 30, 52, 38], ['Tue', 22, 40, 46], ['Wed', 44, 66, 30], ['Thu', 26, 48, 58], ['Fri', 38, 72, 44], ['Sat', 18, 34, 70], ['Sun', 34, 58, 36]],
+      '30d': [['W1', 40, 62, 48], ['W2', 30, 54, 60], ['W3', 52, 74, 42], ['W4', 36, 58, 66], ['W5', 46, 80, 50], ['W6', 28, 46, 58], ['W7', 50, 70, 40]],
+      '12m': [['Apr', 44, 62, 48], ['May', 36, 55, 60], ['Jun', 58, 70, 44], ['Jul', 40, 58, 66], ['Aug', 50, 66, 52], ['Sep', 62, 85, 62], ['Est', 66, 90, 64]]
+    };
+    const chart = chartSets[s.range].map(c => ({
+      label: c[0],
+      savStyle: 'width:14px;max-width:22%;border-radius:6px;background:#DDE8C6;height:' + c[1] + '%',
+      incStyle: 'width:14px;max-width:22%;border-radius:6px;background:#8CC93F;height:' + c[2] + '%',
+      expStyle: 'width:14px;max-width:22%;border-radius:6px;background:#F0B26B;height:' + c[3] + '%'
+    }));
+
+    const txnAll = [
+      { name: 'Salary — Nexthink', meta: '10 Sept · Bank transfer', amount: '+ ₹85,000', status: 'Completed', inc: true, initials: 'SA' },
+      { name: 'Blinkit', meta: '10 Sept · Groceries · #family', amount: '− ₹1,240', status: 'Completed', inc: false, initials: 'BL' },
+      { name: 'Croma', meta: '9 Sept · Shopping · #reimbursable', amount: '− ₹4,999', status: 'Pending', inc: false, initials: 'CR' },
+      { name: 'Freelance — Loom', meta: '9 Sept · Income · #work', amount: '+ ₹18,000', status: 'Completed', inc: true, initials: 'FR' },
+      { name: 'Zomato', meta: '9 Sept · Food & drink', amount: '− ₹680', status: 'Completed', inc: false, initials: 'ZO' },
+      { name: 'Indian Oil', meta: '8 Sept · Transport · Fuel', amount: '− ₹2,100', status: 'Completed', inc: false, initials: 'IO' }
+    ];
+    const txns = txnAll
+      .filter(t => s.filter === 'All' ? true : s.filter === 'Income' ? t.inc : s.filter === 'Expense' ? !t.inc : t.status === 'Pending')
+      .map(t => ({
+        ...t,
+        chipStyle: this.chip(t.inc ? '#E9F3DA' : '#F1F4EC', t.inc ? '#4E7D25' : '#5C6553'),
+        amtStyle: 'font-size:13px;font-weight:800;color:' + (t.inc ? '#4E7D25' : '#141712'),
+        statusStyle: 'font-size:10px;font-weight:600;margin-top:2px;color:' + (t.status === 'Pending' ? '#C08A3E' : '#9AA396')
+      }));
+
+    const cb = [
+      ['Rent', '₹28,000', 53, '#5E8F2B'], ['Groceries', '₹8,400', 16, '#7DBE3C'],
+      ['Food & drink', '₹6,100', 12, '#A5DC57'], ['Transport', '₹4,200', 8, '#C6E88C'],
+      ['Shopping', '₹3,540', 7, '#F0B26B'], ['Other', '₹2,100', 4, '#DDE3D5']
+    ];
+
+    return {
+      nav: [mkNav('Dashboard'), mkNav('Transactions', '84'), mkNav('Receipts', '12'), mkNav('Budgets'), mkNav('Recurring', '4'), mkNav('Insights'), mkNav('Lists')],
+      navSecondary: [mkNav('Categories & tags'), mkNav('Settings'), mkNav('Export data')],
+
+      addOpen: s.addOpen,
+      toggleAdd: () => this.setState(st => ({ addOpen: !st.addOpen })),
+
+      ranges: ['7d', '30d', '12m'].map(p => ({
+        label: p, onPick: () => this.setState({ range: p }),
+        style: 'padding:9px 14px;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;' +
+          (s.range === p ? 'background:#141712;color:#fff' : 'background:#F1F4EC;color:#5C6553')
+      })),
+      legend: [
+        { label: 'Savings', dotStyle: 'width:9px;height:9px;border-radius:3px;background:#DDE8C6' },
+        { label: 'Income', dotStyle: 'width:9px;height:9px;border-radius:3px;background:#8CC93F' },
+        { label: 'Expenses', dotStyle: 'width:9px;height:9px;border-radius:3px;background:#F0B26B' }
+      ],
+      chart,
+      kpis: [
+        { label: 'Total income', value: '₹85,000', delta: '↑ 5.1% vs last month', deltaStyle: 'font-size:11px;font-weight:700;color:#4E7D25;margin-top:4px' },
+        { label: 'Total expenses', value: '₹52,340', delta: '↑ 15.5% vs last month', deltaStyle: 'font-size:11px;font-weight:700;color:#B4744E;margin-top:4px' },
+        { label: 'Saved this month', value: '₹32,660', delta: '↑ 20.7% vs last month', deltaStyle: 'font-size:11px;font-weight:700;color:#4E7D25;margin-top:4px' }
+      ],
+      healthRows: [
+        { label: 'Savings rate', val: '32%', barStyle: 'height:100%;width:72%;border-radius:99px;background:#9BD44A' },
+        { label: 'Budget discipline', val: '87%', barStyle: 'height:100%;width:87%;border-radius:99px;background:#C6E88C' },
+        { label: 'Recurring load', val: '36%', barStyle: 'height:100%;width:36%;border-radius:99px;background:#F0B26B' }
+      ],
+      budgetRows: [
+        { name: 'Rent', pct: '100%', pctColor: 'color:#7C8574', barStyle: 'height:100%;width:100%;border-radius:99px;background:#7DBE3C' },
+        { name: 'Groceries', pct: '84%', pctColor: 'color:#7C8574', barStyle: 'height:100%;width:84%;border-radius:99px;background:#8CC93F' },
+        { name: 'Food & drink', pct: '122%', pctColor: 'color:#B4544E;font-weight:700', barStyle: 'height:100%;width:100%;border-radius:99px;background:#D98C6A' },
+        { name: 'Transport', pct: '70%', pctColor: 'color:#7C8574', barStyle: 'height:100%;width:70%;border-radius:99px;background:#A5DC57' }
+      ],
+      catBreak: cb.map(c => ({
+        name: c[0], amount: c[1], pct: c[2] + '%',
+        segStyle: 'height:14px;border-radius:5px;flex:' + c[2] + ';background:' + c[3],
+        dotStyle: 'width:10px;height:10px;border-radius:4px;flex:none;background:' + c[3]
+      })),
+      bills: [
+        { name: 'Netflix', due: 'Due 14 Sept · 3d reminder', amount: '₹649', initials: 'NF', chipStyle: this.chip('#FBEDE4', '#B4744E') },
+        { name: 'Cult.fit', due: 'Due 18 Sept · 2d reminder', amount: '₹1,200', initials: 'CF', chipStyle: this.chip('#E9F3DA', '#4E7D25') },
+        { name: 'ACT Fibernet', due: 'Due 20 Sept · 1d reminder', amount: '₹999', initials: 'AC', chipStyle: this.chip('#F1F4EC', '#5C6553') },
+        { name: 'Rent — Prestige', due: 'Due 1 Oct · 5d reminder', amount: '₹28,000', initials: 'RE', chipStyle: this.chip('#F1F4EC', '#5C6553') }
+      ],
+      tips: [
+        { text: 'Food delivery is at 122% of its ₹5,000 target. Capping it at ₹4,000 clears the monthly budget with ₹6,660 to spare.' },
+        { text: 'Three subscriptions renew within six days of each other. Moving them to the 1st smooths your cash flow.' },
+        { text: 'Your savings rate held above 30% for four months — a ₹7,80,000 yearly target is realistic.' }
+      ],
+      filters: ['All', 'Income', 'Expense', 'Pending'].map(f => ({
+        label: f, onPick: () => this.setState({ filter: f }), style: this.chipBtn(s.filter === f)
+      })),
+      txns
+    };
+  }
+}
+</script>
+</body>
+</html>
